@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}} | FUBAR株式会社</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta property="og:title" content="{{OGP_TITLE}}">
+  <meta property="og:description" content="{{OGP_DESCRIPTION}}">
+  <meta property="og:image" content="{{OGP_IMAGE_URL}}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1a2f5a;
+      --navy-dark: #0d1f3c;
+      --gold: #d4af37;
+      --gold-light: #f0d060;
+      --line: #06C755;
+      --text: #1a1a1a;
+      --text-sub: #666;
+      --bg: #f5f6fa;
+      --white: #fff;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(26,47,90,.12);
+    }
+    body { font-family: 'Noto Sans JP', sans-serif; color: var(--text); background: var(--white); line-height: 1.8; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 920px; margin: 0 auto; }
+    section { padding: 80px 20px; }
+    .section-title { font-size: clamp(22px, 4.5vw, 34px); font-weight: 900; text-align: center; margin-bottom: 10px; color: var(--navy); }
+    .section-title span { color: var(--gold); }
+    .section-sub { text-align: center; color: var(--text-sub); margin-bottom: 48px; font-size: 15px; }
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* CTA Button */
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--line); color: var(--white);
+      font-size: 17px; font-weight: 700;
+      padding: 17px 34px; border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(6,199,85,.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(6,199,85,.5); }
+    .cta-btn svg { width: 22px; height: 22px; }
+
+    /* ===== HERO ===== */
+    #hero {
+      background: linear-gradient(140deg, var(--navy) 0%, var(--navy-dark) 60%, #1a3a6a 100%);
+      color: var(--white); padding: 100px 20px 90px; text-align: center; position: relative; overflow: hidden;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 60px;
+      background: var(--white); clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-tag {
+      display: inline-block; background: rgba(212,175,55,.2); border: 1px solid var(--gold);
+      color: var(--gold); font-size: 13px; font-weight: 700; padding: 5px 18px; border-radius: 20px; margin-bottom: 28px;
+    }
+    .hero-copy { font-size: clamp(26px, 5.5vw, 50px); font-weight: 900; line-height: 1.35; margin-bottom: 20px; }
+    .hero-copy em { color: var(--gold); font-style: normal; }
+    .hero-lead { font-size: clamp(14px, 2.5vw, 17px); opacity: .85; max-width: 580px; margin: 0 auto 44px; }
+    .hero-nums { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin: 44px 0; }
+    .hero-num-item { text-align: center; }
+    .hero-num-item .n { font-size: clamp(30px, 5vw, 46px); font-weight: 900; color: var(--gold); display: block; }
+    .hero-num-item .l { font-size: 12px; opacity: .75; margin-top: 2px; }
+
+    /* ===== EMPATHY ===== */
+    #empathy { background: var(--bg); }
+    .empathy-intro { text-align: center; font-size: 17px; max-width: 640px; margin: 0 auto 40px; line-height: 2; }
+    .empathy-intro strong { color: var(--navy); font-weight: 900; }
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .pain-card {
+      background: var(--white); border-radius: var(--radius); padding: 20px 24px;
+      border-left: 5px solid #ef4444; box-shadow: var(--shadow); font-size: 15px;
+    }
+    .pain-card::before { content: '😔  '; }
+
+    /* ===== SOLUTION ===== */
+    #solution { }
+    .solution-flow { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
+    .solution-step {
+      display: flex; gap: 20px; align-items: flex-start; padding: 28px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .solution-step:last-child { border-bottom: none; }
+    .step-num {
+      background: var(--navy); color: var(--gold); font-size: 22px; font-weight: 900;
+      width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .step-body h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step-body p { font-size: 15px; color: var(--text-sub); }
+
+    /* ===== RESULTS ===== */
+    #results { background: var(--navy); color: var(--white); }
+    #results .section-title { color: var(--gold); }
+    #results .section-sub { color: rgba(255,255,255,.7); }
+    .result-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .result-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(212,175,55,.3);
+      border-radius: var(--radius); padding: 24px; text-align: center;
+    }
+    .result-card .label { font-size: 13px; opacity: .7; margin-bottom: 8px; }
+    .result-card .before { font-size: 14px; color: rgba(255,255,255,.5); text-decoration: line-through; }
+    .result-card .arrow { color: var(--gold); font-size: 18px; margin: 4px 0; }
+    .result-card .after { font-size: clamp(24px, 4vw, 36px); font-weight: 900; color: var(--gold); }
+    .result-card .client { font-size: 12px; opacity: .6; margin-top: 8px; }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { background: var(--bg); }
+    .voices { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .voice-card {
+      background: var(--white); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow);
+    }
+    .voice-stars { color: #fbbf24; margin-bottom: 10px; font-size: 16px; }
+    .voice-text { font-size: 15px; line-height: 1.9; margin-bottom: 16px; color: var(--text); }
+    .voice-meta { font-size: 13px; color: var(--text-sub); font-weight: 700; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+
+    /* ===== PLAN ===== */
+    #plan { }
+    .plan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .plan-card {
+      border: 2px solid #e5e7eb; border-radius: var(--radius); padding: 32px 24px; text-align: center;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .plan-card.recommended { border-color: var(--gold); box-shadow: 0 8px 32px rgba(212,175,55,.2); }
+    .plan-badge { background: var(--gold); color: var(--navy); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 12px; display: inline-block; margin-bottom: 16px; }
+    .plan-name { font-size: 20px; font-weight: 900; color: var(--navy); margin-bottom: 8px; }
+    .plan-price { font-size: clamp(28px, 4vw, 38px); font-weight: 900; color: var(--navy); }
+    .plan-price span { font-size: 15px; font-weight: 400; }
+    .plan-features { list-style: none; margin: 20px 0; text-align: left; }
+    .plan-features li { font-size: 14px; padding: 6px 0; border-bottom: 1px solid #f5f5f5; }
+    .plan-features li::before { content: '✓  '; color: var(--gold); font-weight: 700; }
+
+    /* ===== CTA ===== */
+    #cta {
+      background: linear-gradient(140deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: var(--white); text-align: center;
+    }
+    #cta .section-title { color: var(--white); }
+    #cta .section-title span { color: var(--gold); }
+    #cta .section-sub { color: rgba(255,255,255,.75); }
+    .cta-note { font-size: 13px; opacity: .65; margin-top: 14px; }
+
+    /* ===== FAQ ===== */
+    #faq { background: var(--bg); }
+    .faq-list { max-width: 700px; margin: 0 auto; }
+    .faq-item { background: var(--white); border-radius: var(--radius); margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.05); overflow: hidden; }
+    .faq-q { font-weight: 700; font-size: 15px; cursor: pointer; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .faq-q::after { content: '＋'; font-size: 20px; color: var(--navy); flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '－'; color: var(--gold); }
+    .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.9; padding: 0 24px 20px; display: none; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer { background: #0a0f1e; color: rgba(255,255,255,.5); text-align: center; padding: 40px 20px; font-size: 13px; }
+    footer .logo { color: var(--gold); font-weight: 900; font-size: 18px; margin-bottom: 12px; }
+    footer a { color: rgba(255,255,255,.4); margin: 0 8px; }
+    footer a:hover { color: var(--gold); }
+
+    /* ===== FIXED CTA ===== */
+    #fixed-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--navy); padding: 12px 20px;
+      display: flex; justify-content: center; align-items: center; gap: 16px;
+      z-index: 999; box-shadow: 0 -4px 20px rgba(0,0,0,.25);
+      opacity: 0; transition: opacity .3s;
+    }
+    #fixed-cta.show { opacity: 1; }
+    #fixed-cta p { color: var(--white); font-size: 14px; font-weight: 700; }
+    #fixed-cta .cta-btn { font-size: 14px; padding: 11px 22px; }
+
+    @media (max-width: 768px) {
+      section { padding: 60px 16px; }
+      .hero-nums { gap: 24px; }
+      #fixed-cta p { display: none; }
+    }
+    @media (max-width: 375px) {
+      .cta-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-tag">{{HERO_TAG}}</div>
+    <h1 class="hero-copy">{{HERO_COPY_1}}<br><em>{{HERO_COPY_ACCENT}}</em><br>{{HERO_COPY_2}}</h1>
+    <p class="hero-lead">{{HERO_LEAD}}</p>
+    <div class="hero-nums">
+      <div class="hero-num-item"><span class="n">{{NUM1}}</span><span class="l">{{NUM1_LABEL}}</span></div>
+      <div class="hero-num-item"><span class="n">{{NUM2}}</span><span class="l">{{NUM2_LABEL}}</span></div>
+      <div class="hero-num-item"><span class="n">{{NUM3}}</span><span class="l">{{NUM3_LABEL}}</span></div>
+    </div>
+    <a href="{{LINE_URL}}" class="cta-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+      {{CTA_BTN_1}}
+    </a>
+  </div>
+</section>
+
+<section id="empathy" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{EMPATHY_TITLE}}</h2>
+    <p class="section-sub">{{EMPATHY_SUB}}</p>
+    <p class="empathy-intro">{{EMPATHY_INTRO}}</p>
+    <div class="pain-grid">
+      <div class="pain-card">{{PAIN_1}}</div>
+      <div class="pain-card">{{PAIN_2}}</div>
+      <div class="pain-card">{{PAIN_3}}</div>
+      <div class="pain-card">{{PAIN_4}}</div>
+    </div>
+  </div>
+</section>
+
+<section id="solution" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{SOLUTION_TITLE}}</h2>
+    <p class="section-sub">{{SOLUTION_SUB}}</p>
+    <div class="solution-flow">
+      <div class="solution-step"><div class="step-num">01</div><div class="step-body"><h3>{{STEP1_TITLE}}</h3><p>{{STEP1_DESC}}</p></div></div>
+      <div class="solution-step"><div class="step-num">02</div><div class="step-body"><h3>{{STEP2_TITLE}}</h3><p>{{STEP2_DESC}}</p></div></div>
+      <div class="solution-step"><div class="step-num">03</div><div class="step-body"><h3>{{STEP3_TITLE}}</h3><p>{{STEP3_DESC}}</p></div></div>
+      <div class="solution-step"><div class="step-num">04</div><div class="step-body"><h3>{{STEP4_TITLE}}</h3><p>{{STEP4_DESC}}</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">支援実績</h2>
+    <p class="section-sub">{{RESULTS_SUB}}</p>
+    <div class="result-cards">
+      <div class="result-card"><div class="label">{{R1_LABEL}}</div><div class="before">{{R1_BEFORE}}</div><div class="arrow">↓</div><div class="after">{{R1_AFTER}}</div><div class="client">{{R1_CLIENT}}</div></div>
+      <div class="result-card"><div class="label">{{R2_LABEL}}</div><div class="before">{{R2_BEFORE}}</div><div class="arrow">↓</div><div class="after">{{R2_AFTER}}</div><div class="client">{{R2_CLIENT}}</div></div>
+      <div class="result-card"><div class="label">{{R3_LABEL}}</div><div class="before">{{R3_BEFORE}}</div><div class="arrow">↓</div><div class="after">{{R3_AFTER}}</div><div class="client">{{R3_CLIENT}}</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">お客様の<span>声</span></h2>
+    <p class="section-sub">{{TESTIMONIALS_SUB}}</p>
+    <div class="voices">
+      <div class="voice-card"><div class="voice-stars">★★★★★</div><p class="voice-text">{{VOICE1_TEXT}}</p><div class="voice-meta">{{VOICE1_META}}</div></div>
+      <div class="voice-card"><div class="voice-stars">★★★★★</div><p class="voice-text">{{VOICE2_TEXT}}</p><div class="voice-meta">{{VOICE2_META}}</div></div>
+      <div class="voice-card"><div class="voice-stars">★★★★★</div><p class="voice-text">{{VOICE3_TEXT}}</p><div class="voice-meta">{{VOICE3_META}}</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="plan" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">料金<span>プラン</span></h2>
+    <p class="section-sub">初期構築30〜100万円 ＋ 月額伴走支援</p>
+    <div class="plan-cards">
+      <div class="plan-card"><div class="plan-name">スタンダード</div><div class="plan-price">¥150,000<span>/月</span></div><ul class="plan-features"><li>LINE設計・配信制作</li><li>月4本の配信</li><li>月次レポート</li></ul><a href="{{LINE_URL}}" class="cta-btn" style="width:100%;justify-content:center;margin-top:12px">相談する</a></div>
+      <div class="plan-card recommended"><div class="plan-badge">人気 No.1</div><div class="plan-name">プロ</div><div class="plan-price">¥300,000<span>/月</span></div><ul class="plan-features"><li>LINE設計・配信制作</li><li>月8本の配信</li><li>ステップ配信設計</li><li>月次レポート＋改善提案</li></ul><a href="{{LINE_URL}}" class="cta-btn" style="width:100%;justify-content:center;margin-top:12px">相談する</a></div>
+      <div class="plan-card"><div class="plan-name">エンタープライズ</div><div class="plan-price">¥450,000<span>/月</span></div><ul class="plan-features"><li>全プロ内容を含む</li><li>配信数無制限</li><li>専任担当者</li><li>週次MTG</li></ul><a href="{{LINE_URL}}" class="cta-btn" style="width:100%;justify-content:center;margin-top:12px">相談する</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">まず<span>15分</span>だけ話しましょう</h2>
+    <p class="section-sub">{{CTA_SUB}}</p>
+    <a href="{{LINE_URL}}" class="cta-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+      {{CTA_BTN_2}}
+    </a>
+    <p class="cta-note">{{CTA_NOTE}}</p>
+  </div>
+</section>
+
+<section id="faq" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">よくある<span>質問</span></h2>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">{{FAQ1_Q}}</div><div class="faq-a">{{FAQ1_A}}</div></div>
+      <div class="faq-item"><div class="faq-q">{{FAQ2_Q}}</div><div class="faq-a">{{FAQ2_A}}</div></div>
+      <div class="faq-item"><div class="faq-q">{{FAQ3_Q}}</div><div class="faq-a">{{FAQ3_A}}</div></div>
+      <div class="faq-item"><div class="faq-q">{{FAQ4_Q}}</div><div class="faq-a">{{FAQ4_A}}</div></div>
+      <div class="faq-item"><div class="faq-q">{{FAQ5_Q}}</div><div class="faq-a">{{FAQ5_A}}</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">FUBAR</div>
+  <p>株式会社FUBAR | <a href="#">プライバシーポリシー</a> | <a href="#">特定商取引法に基づく表記</a></p>
+  <p style="margin-top:8px">© 2025 FUBAR Inc. All Rights Reserved.</p>
+</footer>
+
+<div id="fixed-cta">
+  <p>📱 まず話すだけでOKです</p>
+  <a href="{{LINE_URL}}" class="cta-btn">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+    {{FIXED_CTA_TEXT}}
+  </a>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:.1});
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => q.closest('.faq-item').classList.toggle('open')));
+  window.addEventListener('scroll', () => { document.getElementById('fixed-cta').classList.toggle('show', window.scrollY > 400); });
+</script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <!-- OGP -->
+  <meta property="og:title" content="{{OGP_TITLE}}">
+  <meta property="og:description" content="{{OGP_DESCRIPTION}}">
+  <meta property="og:image" content="{{OGP_IMAGE_URL}}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --main: {{MAIN_COLOR}};       /* 例: #1a2f5a */
+      --accent: {{ACCENT_COLOR}};   /* 例: #d4af37 */
+      --line: #06C755;
+      --text: #1a1a1a;
+      --text-sub: #555;
+      --bg: #f8f8f8;
+      --white: #fff;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,.1);
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== SECTION COMMON ===== */
+    section { padding: 80px 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-title {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--main);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-sub);
+      margin-bottom: 48px;
+      font-size: 15px;
+    }
+
+    /* ===== FADE-IN ===== */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== CTA BUTTON ===== */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--line);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 36px;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(6,199,85,.4);
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(6,199,85,.5); }
+    .cta-btn svg { width: 24px; height: 24px; }
+
+    /* ===== HERO ===== */
+    #hero {
+      background: linear-gradient(135deg, var(--main) 0%, #0d1f3c 100%);
+      color: var(--white);
+      padding: 100px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--main);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(28px, 6vw, 52px);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: clamp(15px, 3vw, 18px);
+      opacity: .85;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 900;
+      color: var(--accent);
+      display: block;
+    }
+    .hero-stat .label { font-size: 13px; opacity: .8; }
+
+    /* ===== PROBLEM ===== */
+    #problem { background: var(--bg); }
+    .problem-list {
+      display: grid;
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .problem-item {
+      background: var(--white);
+      border-left: 4px solid #e53e3e;
+      padding: 16px 20px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== FEATURES ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--accent);
+    }
+    .feature-icon { font-size: 48px; margin-bottom: 16px; }
+    .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--main); }
+
+    /* ===== RESULTS ===== */
+    #results { background: var(--main); color: var(--white); }
+    #results .section-title { color: var(--accent); }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .result-card {
+      text-align: center;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+    }
+    .result-card .before { font-size: 14px; opacity: .7; text-decoration: line-through; }
+    .result-card .arrow { font-size: 20px; margin: 4px 0; color: var(--accent); }
+    .result-card .after { font-size: clamp(22px, 4vw, 32px); font-weight: 900; color: var(--accent); }
+    .result-card .desc { font-size: 13px; opacity: .8; margin-top: 6px; }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { background: var(--bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '"';
+      font-size: 80px;
+      color: var(--accent);
+      opacity: .3;
+      position: absolute;
+      top: -10px; left: 16px;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .testimonial-stars { color: #fbbf24; font-size: 18px; margin-bottom: 12px; }
+    .testimonial-text { font-size: 15px; line-height: 1.8; margin-bottom: 16px; }
+    .testimonial-author { font-size: 13px; color: var(--text-sub); font-weight: 700; }
+
+    /* ===== CTA SECTION ===== */
+    #cta {
+      background: linear-gradient(135deg, var(--main) 0%, #0d1f3c 100%);
+      color: var(--white);
+      text-align: center;
+    }
+    #cta .section-title { color: var(--white); }
+    #cta .section-sub { color: rgba(255,255,255,.8); }
+    .cta-note { font-size: 13px; opacity: .7; margin-top: 12px; }
+
+    /* ===== FAQ ===== */
+    .faq-list { max-width: 700px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 0;
+    }
+    .faq-q {
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-q::after { content: '＋'; font-size: 20px; color: var(--main); flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '－'; }
+    .faq-a {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-top: 12px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 13px;
+    }
+    footer a { color: rgba(255,255,255,.5); margin: 0 8px; }
+
+    /* ===== FIXED CTA BANNER ===== */
+    #fixed-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--main);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      z-index: 1000;
+      box-shadow: 0 -4px 20px rgba(0,0,0,.2);
+    }
+    #fixed-cta p { color: var(--white); font-size: 14px; font-weight: 700; }
+    #fixed-cta .cta-btn { font-size: 15px; padding: 12px 24px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      section { padding: 60px 16px; }
+      .hero-stats { gap: 24px; }
+      #fixed-cta p { display: none; }
+      #fixed-cta { padding: 10px 16px; }
+    }
+    @media (max-width: 375px) {
+      .cta-btn { font-size: 15px; padding: 16px 24px; width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-badge">{{HERO_BADGE}}</div>
+    <h1 class="hero-title">{{HERO_TITLE_1}}<br><span>{{HERO_TITLE_ACCENT}}</span><br>{{HERO_TITLE_2}}</h1>
+    <p class="hero-sub">{{HERO_SUB}}</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">{{STAT1_NUM}}</span><span class="label">{{STAT1_LABEL}}</span></div>
+      <div class="hero-stat"><span class="num">{{STAT2_NUM}}</span><span class="label">{{STAT2_LABEL}}</span></div>
+      <div class="hero-stat"><span class="num">{{STAT3_NUM}}</span><span class="label">{{STAT3_LABEL}}</span></div>
+    </div>
+    <a href="{{LINE_URL}}" class="cta-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+      {{CTA_TEXT_1}}
+    </a>
+  </div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section id="problem" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{PROBLEM_TITLE}}</h2>
+    <p class="section-sub">{{PROBLEM_SUB}}</p>
+    <div class="problem-list">
+      <div class="problem-item">😓 {{PROBLEM_1}}</div>
+      <div class="problem-item">😓 {{PROBLEM_2}}</div>
+      <div class="problem-item">😓 {{PROBLEM_3}}</div>
+      <div class="problem-item">😓 {{PROBLEM_4}}</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{FEATURES_TITLE}}</h2>
+    <p class="section-sub">{{FEATURES_SUB}}</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">{{FEATURE1_ICON}}</div>
+        <div class="feature-title">{{FEATURE1_TITLE}}</div>
+        <p>{{FEATURE1_DESC}}</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">{{FEATURE2_ICON}}</div>
+        <div class="feature-title">{{FEATURE2_TITLE}}</div>
+        <p>{{FEATURE2_DESC}}</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">{{FEATURE3_ICON}}</div>
+        <div class="feature-title">{{FEATURE3_TITLE}}</div>
+        <p>{{FEATURE3_DESC}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section id="results" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{RESULTS_TITLE}}</h2>
+    <p class="section-sub">{{RESULTS_SUB}}</p>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="before">{{RESULT1_BEFORE}}</div>
+        <div class="arrow">↓</div>
+        <div class="after">{{RESULT1_AFTER}}</div>
+        <div class="desc">{{RESULT1_DESC}}</div>
+      </div>
+      <div class="result-card">
+        <div class="before">{{RESULT2_BEFORE}}</div>
+        <div class="arrow">↓</div>
+        <div class="after">{{RESULT2_AFTER}}</div>
+        <div class="desc">{{RESULT2_DESC}}</div>
+      </div>
+      <div class="result-card">
+        <div class="before">{{RESULT3_BEFORE}}</div>
+        <div class="arrow">↓</div>
+        <div class="after">{{RESULT3_AFTER}}</div>
+        <div class="desc">{{RESULT3_DESC}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{TESTIMONIALS_TITLE}}</h2>
+    <p class="section-sub">{{TESTIMONIALS_SUB}}</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{TESTIMONIAL1_TEXT}}</p>
+        <div class="testimonial-author">{{TESTIMONIAL1_AUTHOR}}</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{TESTIMONIAL2_TEXT}}</p>
+        <div class="testimonial-author">{{TESTIMONIAL2_AUTHOR}}</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">{{TESTIMONIAL3_TEXT}}</p>
+        <div class="testimonial-author">{{TESTIMONIAL3_AUTHOR}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">{{CTA_TITLE}}</h2>
+    <p class="section-sub">{{CTA_SUB}}</p>
+    <a href="{{LINE_URL}}" class="cta-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+      {{CTA_TEXT_2}}
+    </a>
+    <p class="cta-note">{{CTA_NOTE}}</p>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="fade-in">
+  <div class="container">
+    <h2 class="section-title">よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">{{FAQ1_Q}}</div>
+        <div class="faq-a">{{FAQ1_A}}</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">{{FAQ2_Q}}</div>
+        <div class="faq-a">{{FAQ2_A}}</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">{{FAQ3_Q}}</div>
+        <div class="faq-a">{{FAQ3_A}}</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">{{FAQ4_Q}}</div>
+        <div class="faq-a">{{FAQ4_A}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>{{COMPANY_NAME}} | <a href="#">プライバシーポリシー</a> | <a href="#">特定商取引法</a></p>
+  <p style="margin-top:8px">© 2025 {{COMPANY_NAME}} All Rights Reserved.</p>
+</footer>
+
+<!-- ===== FIXED CTA BANNER ===== -->
+<div id="fixed-cta">
+  <p>📱 まずは無料で話しましょう</p>
+  <a href="{{LINE_URL}}" class="cta-btn">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 2.75 1.52 5.19 3.88 6.74L5 21l4.09-1.95C10.02 19.35 11 19.5 12 19.5c5.52 0 10-3.82 10-8.5S17.52 2 12 2z"/></svg>
+    {{FIXED_CTA_TEXT}}
+  </a>
+</div>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => q.closest('.faq-item').classList.toggle('open'));
+  });
+
+  // Hide fixed CTA at very top
+  window.addEventListener('scroll', () => {
+    document.getElementById('fixed-cta').style.opacity = window.scrollY > 300 ? '1' : '0';
+  });
+  document.getElementById('fixed-cta').style.opacity = '0';
+  document.getElementById('fixed-cta').style.transition = 'opacity .3s';
+</script>
+</body>
+</html>
