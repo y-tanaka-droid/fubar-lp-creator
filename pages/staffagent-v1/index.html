@@ -187,21 +187,6 @@
       color: var(--white); padding: 80px 0 90px;
       position: relative; overflow: hidden;
     }
-    .hero-inner {
-      display: flex; align-items: center; gap: 40px;
-    }
-    .hero-text { flex: 1; min-width: 0; }
-    .hero-visual {
-      flex: 0 0 340px; max-width: 340px;
-      display: flex; align-items: flex-end; justify-content: center;
-      align-self: stretch;
-    }
-    .hero-visual img {
-      width: 100%; max-height: 420px;
-      object-fit: contain; object-position: bottom center;
-      filter: drop-shadow(0 8px 32px rgba(0,0,0,.3));
-      border-radius: 12px;
-    }
     #hero::after {
       content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
       height: 52px; background: var(--white);
@@ -404,12 +389,8 @@
     @media (max-width: 900px) {
       :root { --panel-w: 220px; }
       .skills-wrap { grid-template-columns: 1fr; }
-      .hero-visual { flex: 0 0 260px; max-width: 260px; }
     }
     @media (max-width: 700px) {
-      .hero-inner { flex-direction: column; }
-      .hero-visual { flex: none; max-width: 100%; width: 100%; max-height: 240px; overflow: hidden; }
-      .hero-visual img { max-height: 240px; width: 100%; }
     }
     @media (max-width: 700px) {
       :root { --panel-w: 200px; }
@@ -481,8 +462,7 @@
 <!-- HERO -->
 <section id="hero">
   <div class="container">
-    <div class="hero-inner">
-      <div class="hero-text">
+    
         <div class="hero-tag">事務職・オフィスワーカー専門</div>
         <h1 class="hero-title">
           求人を出すのを、<br>
@@ -507,8 +487,7 @@
           <span class="skill-chip chip-y">MOS取得者</span>
           <span class="skill-chip chip-y">TOEIC保有</span>
         </div>
-      </div>
-      </div>
+      
   </div>
 </section>
 
@@ -564,8 +543,7 @@
       <div>
         <h3>スタッフエージェントが<span>すべて解決します</span></h3>
         <p>事務職・オフィスワーカー専門だからこそ、スキルが明確な即戦力人材を短期間でご紹介できます。</p>
-      </div>
-    </div>
+      
   </div>
 </section>
 
@@ -581,8 +559,7 @@
       <div class="str-card"><div class="str-num">強み 02</div><div class="str-icon">💰</div><div class="str-title">コスト削減</div><p class="str-text">お支払いいただくのは実稼働分の時間給と交通費のみ。社会保険・福利厚生・採用費用は一切不要。予算に合わせた柔軟なプランでご提案します。</p><p class="str-point">→ 正社員採用比で採用コスト最大60%削減</p></div>
       <div class="str-card"><div class="str-num">強み 03</div><div class="str-icon">⚡</div><div class="str-title">即戦力の確保</div><p class="str-text">経験豊富なスタッフが多数登録。経理・医療事務など職種別に精鋭スタッフをご紹介し、入社初日から戦力として業務に貢献します。</p><p class="str-point">→ 最短即日〜数日でのご紹介が可能</p></div>
       <div class="str-card"><div class="str-num">強み 04</div><div class="str-icon">🔄</div><div class="str-title">人材の流動的な活用</div><p class="str-text">繁忙期の短期・プロジェクト単位の中期・長期継続など、貴社のニーズに合わせた活用が可能。必要な時に必要な人材を確保できます。</p><p class="str-point">→ 短期〜長期まで柔軟に対応</p></div>
-      <div class="str-card"><div class="str-num">強み 05</div><div class="str-icon">🤝</div><div class="str-title">充実のフォローアップ</div><p class="str-text">派遣後も担当営業が定期訪問し、スタッフのパフォーマンスを確認。問題があれば迅速に対応し、貴社のビジネスをサポートし続けます。</p><p class="str-point">→ 派遣後も安心の継続サポート</p></div>
-    </div>
+      <div class="str-card"><div class="str-num">強み 05</div><div class="str-icon">🤝</div><div class="str-title">充実のフォローアップ</div><p class="str-text">派遣後も担当営業が定期訪問し、スタッフのパフォーマンスを確認。問題があれば迅速に対応し、貴社のビジネスをサポートし続けます。</p><p class="str-point">→ 派遣後も安心の継続サポート</p>
   </div>
 </section>
 
@@ -602,8 +579,7 @@
       <div class="job-card"><div class="job-icon">🏢</div><div class="job-name">総務事務</div><div class="job-skills">備品管理・勤怠・社内文書</div></div>
       <div class="job-card"><div class="job-icon">🏥</div><div class="job-name">医療事務</div><div class="job-skills">受付・レセプト・カルテ管理</div></div>
       <div class="job-card"><div class="job-icon">🏦</div><div class="job-name">金融・銀行事務</div><div class="job-skills">窓口業務・証券・保険事務</div></div>
-      <div class="job-card"><div class="job-icon">🌐</div><div class="job-name">その他専門職</div><div class="job-skills">通訳・翻訳・旅行事務</div></div>
-    </div>
+      <div class="job-card"><div class="job-icon">🌐</div><div class="job-name">その他専門職</div><div class="job-skills">通訳・翻訳・旅行事務</div>
   </div>
 </section>
 
@@ -644,8 +620,7 @@
           <li>就業開始：スタッフが貴社で就業を開始</li>
           <li>フォロー：定期訪問でパフォーマンスを確認</li>
         </ul>
-      </div>
-    </div>
+      
   </div>
 </section>
 
@@ -660,8 +635,7 @@
       <div class="flow-step"><div class="flow-circle">1</div><h3>LINEで相談</h3><p>QRを読み取り、お気軽にご連絡ください</p></div>
       <div class="flow-step"><div class="flow-circle">2</div><h3>ヒアリング</h3><p>業務内容・期間・スキルをお聞きします</p></div>
       <div class="flow-step"><div class="flow-circle">3</div><h3>人材のご提案</h3><p>最適なスタッフをご提案・面談実施</p></div>
-      <div class="flow-step"><div class="flow-circle">4</div><h3>就業開始</h3><p>契約後、スタッフが業務を開始します</p></div>
-    </div>
+      <div class="flow-step"><div class="flow-circle">4</div><h3>就業開始</h3><p>契約後、スタッフが業務を開始します</p>
   </div>
 </section>
 
@@ -677,9 +651,8 @@
       <div class="faq-item"><div class="faq-q"><div class="faq-badge">Q</div>どのくらいの期間・人数から依頼できますか？<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-in">短期（1日〜）から長期まで、1名からでも対応可能です。繁忙期の一時的な人手不足から長期的な業務サポートまで、ご要望に合わせてご提案します。</div></div></div>
       <div class="faq-item"><div class="faq-q"><div class="faq-badge">Q</div>スタッフが合わなかった場合はどうなりますか？<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-in">担当営業が定期フォローを行います。万が一合わないと感じた場合はお気軽にご相談ください。状況に応じてスタッフの交代など柔軟に対応いたします。</div></div></div>
       <div class="faq-item"><div class="faq-q"><div class="faq-badge">Q</div>急ぎで人材が必要です。最短でどのくらいで対応できますか？<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-in">登録スタッフの状況によりますが、最短即日〜数日でのご紹介が可能です。まずはLINEにてご相談ください。</div></div></div>
-      <div class="faq-item"><div class="faq-q"><div class="faq-badge">Q</div>特定のスキルや資格を持つスタッフを指定できますか？<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-in">はい、可能です。「Excel VBAが使える方」「日商簿記2級以上」「医療事務経験者」など、ご要望のスキル・資格をお伝えください。条件に合ったスタッフをご紹介します。</div></div></div>
-    </div>
-  </div>
+      <div class="faq-item"><div class="faq-q"><div class="faq-badge">Q</div>特定のスキルや資格を持つスタッフを指定できますか？<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-in">はい、可能です。「Excel VBAが使える方」「日商簿記2級以上」「医療事務経験者」など、ご要望のスキル・資格をお伝えください。条件に合ったスタッフをご紹介します。
+      </div>
 </section>
 
 <!-- FOOTER -->
